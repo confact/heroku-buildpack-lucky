@@ -14,9 +14,6 @@ finished() {
     echo "done"
 }
 
-echo "Installing dependencies.."
-sudo apt-get install -y libyaml-dev
-
 ###########################################################
 # Crystal core buildpack:
 ###########################################################
@@ -66,11 +63,15 @@ echo "export PATH=\$HOME/.heroku/crystal/bin:\$PATH" >> "$BUILD_DIR/.profile.d/c
 # End of Crystal core buildpack
 ###########################################################
 
+start "Installing dependencies"
+sudo apt-get install -y libyaml-dev
+finished
+
 # Build the project
 cd "$BUILD_DIR"
 
 start "Installing shards and compiling project"
-shards build --production --release --ignore-crystal-version
+shards build --production --release --ignore-crystal-version --progress
 finished
 
 start "Setting up Lucky tasks"
