@@ -14,6 +14,9 @@ finished() {
     echo "done"
 }
 
+echo "Installing dependencies.."
+apt-get install -y libyaml-dev
+
 ###########################################################
 # Crystal core buildpack:
 ###########################################################
